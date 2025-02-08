@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import './App.css';
-import { InputForm } from './assets/components/InputForm';
-import { Button } from './assets/components/Button';
+import { InputForm } from './components/InputForm';
+import { Button } from './components/Button';
 
 type Todos = {
 	id: number;
@@ -23,13 +23,38 @@ function App() {
 		},
 	]);
 
+	const [todoTitles, setTodoTitles] = useState<string>('');
+	const [todoId, setTodoId] = useState<number>(0);
+
+	const handleSetTodoTitles = (event: React.ChangeEvent<HTMLInputElement>) => {
+		setTodoTitles(event.target.value);
+	};
+
+	const resetTodoTitles = () => setTodoTitles('');
+
+	const handleAddTodo = () => {
+		const newTodos = [...todos, { id: todoId, title: todoTitles, status: 'incomplete' }];
+		setTodos(newTodos);
+		setTodoId((prev) => prev + 1);
+		resetTodoTitles();
+	};
+
+	const handleDeleteTodo = (targetTodo: { id: number; title: string; status: string }) => {
+		console.log(targetTodo);
+		const deleteTodo = todos.filter((todo) => todo.id !== targetTodo.id);
+		const newTodos = [...deleteTodo];
+		setTodos(newTodos);
+	};
+
+	const handleEditTodo = () => {};
+
 	return (
 		<>
 			<div className="container mx-auto p-8 max-w-lg md:max-w-2xl lg:max-w-4xl bg-white shadow-lg rounded-lg">
 				<h1 className="text-3xl font-bold text-center text-blue-500 mb-4">Todo App</h1>
 
 				{/* タスク入力フォーム */}
-				<InputForm />
+				<InputForm value={todoTitles} onChange={handleSetTodoTitles} onClick={handleAddTodo} />
 
 				{/* タブメニュー */}
 				<div className="flex justify-center gap-4 mt-6 flex-wrap">
@@ -55,16 +80,12 @@ function App() {
 									<Button
 										label="編集"
 										className="text-blue-500 hover:text-blue-400"
-										onClick={() => {
-											alert('削除');
-										}}
+										onClick={handleEditTodo}
 									/>
 									<Button
 										label="削除"
 										className="text-red-500 hover:text-red-400"
-										onClick={() => {
-											alert('削除');
-										}}
+										onClick={() => handleDeleteTodo(todo)}
 									/>
 								</div>
 							</li>
