@@ -9,8 +9,8 @@ React/TypeScriptの練習のために作成したtodoアプリです。
 - Tailwind CSS
 
 ## アプリの機能説明
-todo作成
-todo編集
-todo削除
-todoステータス変更（未完了/完了）
+todo作成  
+todo編集  
+todo削除  
+todoステータス変更（未完了/完了）  
 ステータスによる表示のフィルタリング
