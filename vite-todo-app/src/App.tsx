@@ -77,7 +77,7 @@ function App() {
 		);
 	};
 
-	// 完了、未完了でtodoリストをフィルタリング
+	// 完了、未完了でtodoをフィルタリング
 	const filteredTodos = todos.filter((todo) => {
 		if (filter === 'all') return true;
 		if (filter === 'active') return !todo.completed;
